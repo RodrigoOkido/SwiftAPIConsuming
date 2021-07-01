@@ -13,6 +13,8 @@
 		2B080B21268E436B00B5B595 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B080B1F268E436B00B5B595 /* Main.storyboard */; };
 		2B080B23268E436C00B5B595 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B080B22268E436C00B5B595 /* Assets.xcassets */; };
 		2B080B26268E436C00B5B595 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B080B24268E436C00B5B595 /* LaunchScreen.storyboard */; };
+		2B080B2E268E50FF00B5B595 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B080B2D268E50FF00B5B595 /* MovieTableViewCell.swift */; };
+		2B080B30268E52CF00B5B595 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B080B2F268E52CF00B5B595 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		2B080B22268E436C00B5B595 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B080B25268E436C00B5B595 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2B080B27268E436C00B5B595 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B080B2D268E50FF00B5B595 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
+		2B080B2F268E52CF00B5B595 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				2B080B22268E436C00B5B595 /* Assets.xcassets */,
 				2B080B24268E436C00B5B595 /* LaunchScreen.storyboard */,
 				2B080B27268E436C00B5B595 /* Info.plist */,
+				2B080B2D268E50FF00B5B595 /* MovieTableViewCell.swift */,
+				2B080B2F268E52CF00B5B595 /* DetailViewController.swift */,
 			);
 			path = WebConsuming;
 			sourceTree = "<group>";
@@ -139,6 +145,8 @@
 			files = (
 				2B080B1E268E436B00B5B595 /* ViewController.swift in Sources */,
 				2B080B1A268E436B00B5B595 /* AppDelegate.swift in Sources */,
+				2B080B30268E52CF00B5B595 /* DetailViewController.swift in Sources */,
+				2B080B2E268E50FF00B5B595 /* MovieTableViewCell.swift in Sources */,
 				2B080B1C268E436B00B5B595 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
