@@ -50,6 +50,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "detail_movie") as! DetailMovieTableViewCell
         
+        cell.configImage(url: self.aboutMovie!.image)
         cell.detailed_movieName.text = self.aboutMovie?.title
         cell.detailed_movieGenre.text = self.loadMovieGenre(movie: self.aboutMovie!, all_genre: self.genres)
         cell.detailed_movieRating.text = String(self.aboutMovie?.rating_average ?? 0)

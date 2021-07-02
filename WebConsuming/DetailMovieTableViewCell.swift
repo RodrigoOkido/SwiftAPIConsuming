@@ -16,6 +16,22 @@ class DetailMovieTableViewCell: UITableViewCell {
     @IBOutlet weak var detailed_movieDescription: UILabel!
     
     
+    func configImage (url: String) {
+        let id = URL(string: url)!
+        
+        DispatchQueue.global().async {
+            let data = try! Data(contentsOf: id)
+            
+            let image = UIImage(data: data)
+            DispatchQueue.main.async {
+                self.detailed_movieImage.image = image
+                self.detailed_movieImage.layer.cornerRadius = 10
+
+            }
+        }
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

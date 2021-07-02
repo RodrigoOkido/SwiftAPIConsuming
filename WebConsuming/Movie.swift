@@ -54,7 +54,7 @@ struct PopularMoviesTMDB {
             
             for movieDictionary in movies_details {
                 
-                if popularMovies.count > 2 {
+                if popularMovies.count >= 2 {
                     break
                 }
                 
