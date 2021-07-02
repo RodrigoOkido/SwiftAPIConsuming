@@ -9,10 +9,21 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    var aboutMovie: Movie?
+    
+    @IBOutlet weak var detailed_movieImage: UIImageView!
+    @IBOutlet weak var detailed_movieTitle: UILabel!
+    @IBOutlet weak var detailed_movieGenre: UILabel!
+    @IBOutlet weak var detailed_movieRating: UILabel!
+    @IBOutlet weak var detailed_movieOverview: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        detailed_movieTitle.text = aboutMovie?.title
+        detailed_movieRating.text = String(aboutMovie?.rating_average ?? 0)
+        detailed_movieOverview.text = aboutMovie?.description
 
-        // Do any additional setup after loading the view.
     }
     
 
