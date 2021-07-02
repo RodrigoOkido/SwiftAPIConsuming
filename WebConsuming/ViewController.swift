@@ -14,13 +14,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //MARK: TABLEVIEW VARIABLES
     var popular_movies: [Movie] = []
     var now_playing: [Movie] = []
-    var genres: [Genre] = []
+    var sectionSelected: Int?
     var rowSelected: Int?
 
     //MARK: API DECLARATIONS
     let popularMoviesAPI = PopularMoviesTMDB()
     let nowPlayingAPI = NowPlayingTMDB()
-    let loadGenres = GenresTMDB()
 
     
     override func viewDidLoad() {
@@ -37,13 +36,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
-//        nowPlayingAPI.request_NowPlayingMovies { (movies) in
-//            self.now_playing = movies
-//
-//            DispatchQueue.main.async {
-//            self.tableView.reloadData()
-//            }
-//        }
+        nowPlayingAPI.request_NowPlayingMovies { (movies) in
+            self.now_playing = movies
+
+            DispatchQueue.main.async {
+            self.tableView.reloadData()
+            }
+        }
     }
     
     
@@ -53,7 +52,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return popular_movies.count
+        if (section == 0) {
+            return 2
+        } else {
+            return now_playing.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if (section == 0) {
+            return "Popular Movies"
+        } else {
+            return "Now Playing"
+        }
     }
     
     
@@ -61,8 +72,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "movie_cell") as! MovieTableViewCell
         
-        let movie = popular_movies[indexPath.row]
+        let movie: Movie
+        if (indexPath.section == 0) {
+            movie = popular_movies[indexPath.row]
+        } else {
+            movie = now_playing[indexPath.row]
+        }
         
+        cell.configImage(url: movie.image)
         cell.movieTitle.text = movie.title
         cell.movieDescription.text = movie.description
         cell.movieRating.text = String(movie.rating_average)
@@ -72,10 +89,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let nextViewController = segue.destination as? DetailViewController
-        rowSelected = tableView.indexPathForSelectedRow?.row
+        sectionSelected = tableView.indexPathForSelectedRow?.section
         
-        nextViewController?.aboutMovie = popular_movies[rowSelected!]
-
+        if sectionSelected == 0 {
+            rowSelected = tableView.indexPathForSelectedRow?.row
+            nextViewController?.aboutMovie = popular_movies[rowSelected!]
+        } else {
+            rowSelected = tableView.indexPathForSelectedRow?.row
+            nextViewController?.aboutMovie = now_playing[rowSelected!]
+        }
     }
     
 

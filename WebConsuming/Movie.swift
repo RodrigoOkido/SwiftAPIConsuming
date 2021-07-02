@@ -14,6 +14,7 @@ import Foundation
 struct Movie {
     var id: Int
     var title: String
+    var genres: [Int] // Genres is defined by its IDs in the TMDB Movies API
     var description: String
     var image: String
     var rating_average: Double
@@ -33,7 +34,6 @@ struct PopularMoviesTMDB {
     func request_PopularMovies(page: Int = 0, completionHandler: @escaping ([Movie]) -> Void) {
         if page < 0 { fatalError("Page should not be lower than 0") }
         
-        var movieImage_URL = "https://image.tmdb.org/t/p/w500"
         let urlString = "https://api.themoviedb.org/3/movie/popular?api_key=\(api_key)"
         let url = URL(string: urlString)!
         
@@ -55,6 +55,7 @@ struct PopularMoviesTMDB {
             for movieDictionary in movies_details {
                 guard let movie_id = movieDictionary["id"] as? Int,
                       let movie_name = movieDictionary["original_title"] as? String,
+                      let movie_genre = movieDictionary["genre_ids"] as? [Int],
                       let movie_description = movieDictionary["overview"] as? String,
                       let movie_image = movieDictionary["poster_path"] as? String,
                       let movie_rating = movieDictionary["vote_average"] as? Double
@@ -62,8 +63,10 @@ struct PopularMoviesTMDB {
             
                 else { continue }
                 
+                var movieImage_URL = "https://image.tmdb.org/t/p/w500"
                 movieImage_URL.append(movie_image)
-                let movie = Movie(id: movie_id, title: movie_name, description: movie_description, image: movieImage_URL, rating_average: movie_rating)
+                
+                let movie = Movie(id: movie_id, title: movie_name, genres: movie_genre, description: movie_description, image: movieImage_URL, rating_average: movie_rating)
                 popularMovies.append(movie)
             }
             
@@ -82,7 +85,6 @@ struct NowPlayingTMDB {
     func request_NowPlayingMovies(page: Int = 0, completionHandler: @escaping ([Movie]) -> Void) {
         if page < 0 { fatalError("Page should not be lower than 0") }
         
-        var movieImage_URL = "https://image.tmdb.org/t/p/w500"
         let urlString = "https://api.themoviedb.org/3/movie/now_playing?api_key=\(api_key)"
         let url = URL(string: urlString)!
         
@@ -104,6 +106,7 @@ struct NowPlayingTMDB {
             for movieDictionary in movies_details {
                 guard let movie_id = movieDictionary["id"] as? Int,
                       let movie_name = movieDictionary["original_title"] as? String,
+                      let movie_genre = movieDictionary["genre_ids"] as? [Int],
                       let movie_description = movieDictionary["overview"] as? String,
                       let movie_image = movieDictionary["poster_path"] as? String,
                       let movie_rating = movieDictionary["vote_average"] as? Double
@@ -111,9 +114,10 @@ struct NowPlayingTMDB {
             
                 else { continue }
                 
+                var movieImage_URL = "https://image.tmdb.org/t/p/w500"
                 movieImage_URL.append(movie_image)
                 
-                let movie = Movie(id: movie_id, title: movie_name, description: movie_description, image: movieImage_URL, rating_average: movie_rating)
+                let movie = Movie(id: movie_id, title: movie_name, genres: movie_genre, description: movie_description, image: movieImage_URL, rating_average: movie_rating)
                 nowPlaying.append(movie)
             }
             
@@ -127,8 +131,9 @@ struct NowPlayingTMDB {
 
 struct GenresTMDB {
     let api_key: String = "3b3fe42086419ba7768f061008414e5b"
-
-    func request_NowPlayingMovies(page: Int = 0, completionHandler: @escaping ([Genre]) -> Void) {
+    static var genres: [Genre] = []
+    
+    func request_allGenres(page: Int = 0, completionHandler: @escaping ([Genre]) -> Void) {
         if page < 0 { fatalError("Page should not be lower than 0") }
         
         let urlString = "https://api.themoviedb.org/3/genre/movie/list?api_key=\(api_key)"
@@ -160,6 +165,7 @@ struct GenresTMDB {
                 movies_genres.append(genre)
             }
             
+            GenresTMDB.genres = movies_genres
             
             completionHandler(movies_genres)
         }
