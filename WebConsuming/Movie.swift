@@ -53,6 +53,11 @@ struct PopularMoviesTMDB {
             var popularMovies: [Movie] = []
             
             for movieDictionary in movies_details {
+                
+                if popularMovies.count > 2 {
+                    break
+                }
+                
                 guard let movie_id = movieDictionary["id"] as? Int,
                       let movie_name = movieDictionary["original_title"] as? String,
                       let movie_genre = movieDictionary["genre_ids"] as? [Int],
@@ -67,6 +72,7 @@ struct PopularMoviesTMDB {
                 movieImage_URL.append(movie_image)
                 
                 let movie = Movie(id: movie_id, title: movie_name, genres: movie_genre, description: movie_description, image: movieImage_URL, rating_average: movie_rating)
+                
                 popularMovies.append(movie)
             }
             

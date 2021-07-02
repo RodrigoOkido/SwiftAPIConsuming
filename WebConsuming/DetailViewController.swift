@@ -7,13 +7,10 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet weak var detailed_movieImage: UIImageView!
-    @IBOutlet weak var detailed_movieTitle: UILabel!
-    @IBOutlet weak var detailed_movieGenre: UILabel!
-    @IBOutlet weak var detailed_movieRating: UILabel!
-    @IBOutlet weak var detailed_movieOverview: UILabel!
+    
+    @IBOutlet weak var tableView: UITableView!
     
     
     //MARK: TABLEVIEW VARIABLES
@@ -26,23 +23,65 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+            
+        tableView.dataSource = self
+        tableView.delegate = self
         
         loadGenresAPI.request_allGenres { (genres) in
             self.genres = genres
 
             DispatchQueue.main.async {
-                self.detailed_movieTitle.text = self.aboutMovie?.title
-                self.detailed_movieGenre.text = self.loadMovieGenre(movie: self.aboutMovie!)
-                self.detailed_movieRating.text = String(self.aboutMovie?.rating_average ?? 0)
-                self.detailed_movieOverview.text = self.aboutMovie?.description
-                
+                self.tableView.reloadData()
             }
         }
+        tableView.reloadData()
     }
     
     
-    func loadMovieGenre(movie: Movie) -> String {
-        return "ABC"
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UIScreen.main.bounds.height
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "detail_movie") as! DetailMovieTableViewCell
+        
+        cell.detailed_movieName.text = self.aboutMovie?.title
+        cell.detailed_movieGenre.text = self.loadMovieGenre(movie: self.aboutMovie!, all_genre: self.genres)
+        cell.detailed_movieRating.text = String(self.aboutMovie?.rating_average ?? 0)
+        cell.detailed_movieDescription.text = self.aboutMovie?.description
+        
+        return cell
+    }
+    
+    
+    /**
+     Based on the movie genres, it search for its IDs and return the name of the genre based on ID.
+     Receives an Movie which containss a variable with the list of the genre IDs, and a list of the all existent genres.
+     The list of all genres contains the ID and the name correspondent to this ID.
+     */
+    func loadMovieGenre(movie: Movie, all_genre: [Genre]) -> String {
+        
+        var genres: String = ""
+        
+        
+        for (index, genre_id) in movie.genres.enumerated() {
+            for search_genre in all_genre {
+                if genre_id == search_genre.id {
+                    if index == movie.genres.count - 1 {
+                        genres.append("\(search_genre.name)")
+                    } else {
+                        genres.append("\(search_genre.name), ")
+                    }
+                }
+            }
+        }
+
+        return genres
     }
  
 

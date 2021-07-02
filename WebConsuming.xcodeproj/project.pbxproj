@@ -16,6 +16,7 @@
 		2B080B2E268E50FF00B5B595 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B080B2D268E50FF00B5B595 /* MovieTableViewCell.swift */; };
 		2B080B30268E52CF00B5B595 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B080B2F268E52CF00B5B595 /* DetailViewController.swift */; };
 		2BE9AC02268E840E00EEF726 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9AC01268E840E00EEF726 /* Movie.swift */; };
+		2BE9AC04268FBCEF00EEF726 /* DetailMovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9AC03268FBCEF00EEF726 /* DetailMovieTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		2B080B2D268E50FF00B5B595 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		2B080B2F268E52CF00B5B595 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		2BE9AC01268E840E00EEF726 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		2BE9AC03268FBCEF00EEF726 /* DetailMovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMovieTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				2B080B2D268E50FF00B5B595 /* MovieTableViewCell.swift */,
 				2B080B2F268E52CF00B5B595 /* DetailViewController.swift */,
 				2BE9AC01268E840E00EEF726 /* Movie.swift */,
+				2BE9AC03268FBCEF00EEF726 /* DetailMovieTableViewCell.swift */,
 			);
 			path = WebConsuming;
 			sourceTree = "<group>";
@@ -146,6 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BE9AC04268FBCEF00EEF726 /* DetailMovieTableViewCell.swift in Sources */,
 				2B080B1E268E436B00B5B595 /* ViewController.swift in Sources */,
 				2B080B1A268E436B00B5B595 /* AppDelegate.swift in Sources */,
 				2BE9AC02268E840E00EEF726 /* Movie.swift in Sources */,
