@@ -7,7 +7,11 @@
 
 import UIKit
 
-class SectionHeader: UITableViewHeaderFooterView {
+
+/**
+ Custom section header for the TableView.
+ */
+class CustomSectionHeader: UITableViewHeaderFooterView {
 
     let title = UILabel()
     

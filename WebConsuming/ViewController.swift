@@ -27,7 +27,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(SectionHeader.self, forHeaderFooterViewReuseIdentifier: "section_header")
+        tableView.register(CustomSectionHeader.self, forHeaderFooterViewReuseIdentifier: "section_header")
         
         popularMoviesAPI.request_PopularMovies { (movies) in
             self.popular_movies = movies
@@ -69,7 +69,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "section_header") as! SectionHeader
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "section_header") as! CustomSectionHeader
         if section == 0 {
             view.title.text = "Popular Movies"
             view.title.font = UIFont.boldSystemFont(ofSize: 17.0)
