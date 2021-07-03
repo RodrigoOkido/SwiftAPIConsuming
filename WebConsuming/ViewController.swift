@@ -27,6 +27,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(SectionHeader.self, forHeaderFooterViewReuseIdentifier: "section_header")
         
         popularMoviesAPI.request_PopularMovies { (movies) in
             self.popular_movies = movies
@@ -61,10 +62,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (section == 0) {
-            return "Popular Movies"
+            return " "
         } else {
-            return "Now Playing"
+            return ""
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "section_header") as! SectionHeader
+        if section == 0 {
+            view.title.text = "Popular Movies"
+            view.title.font = UIFont.boldSystemFont(ofSize: 17.0)
+        } else {
+            view.title.text = "Now Playing"
+            view.title.font = UIFont.boldSystemFont(ofSize: 17.0)
+        }
+        return view
+
     }
     
     
@@ -84,6 +98,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.movieDescription.text = movie.description
         cell.movieRating.text = String(movie.rating_average)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
     }
     
     
