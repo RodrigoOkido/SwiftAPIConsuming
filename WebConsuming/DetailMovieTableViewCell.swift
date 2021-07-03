@@ -7,6 +7,11 @@
 
 import UIKit
 
+
+/**
+ DetailMovieTableViewCell. Defines a single cell to show the detail of the movie chosen by the user.
+ The choice to use a cell and tableView is to turn more easily to deal with the constraints and scrollable data.
+ */
 class DetailMovieTableViewCell: UITableViewCell {
 
     @IBOutlet weak var detailed_movieImage: UIImageView!

@@ -38,6 +38,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     
+    // MARK: TABLEVIEW FUNCTIONS
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }

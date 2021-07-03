@@ -18,8 +18,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var rowSelected: Int?
 
     //MARK: API DECLARATIONS
-    let popularMoviesAPI = PopularMoviesTMDB()
-    let nowPlayingAPI = NowPlayingTMDB()
+    let requestPopular = RequestMoviesAPI_TMDB(request_name: .POPULAR_MOVIES)
+    let requestNowPlaying = RequestMoviesAPI_TMDB(request_name: .NOW_PLAYING)
 
     
     override func viewDidLoad() {
@@ -29,7 +29,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.delegate = self
         tableView.register(CustomSectionHeader.self, forHeaderFooterViewReuseIdentifier: "section_header")
         
-        popularMoviesAPI.request_PopularMovies { (movies) in
+            
+        requestPopular.request_movies { (movies) in
             self.popular_movies = movies
 
             DispatchQueue.main.async {
@@ -37,16 +38,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
-        nowPlayingAPI.request_NowPlayingMovies { (movies) in
+        requestNowPlaying.request_movies { (movies) in
             self.now_playing = movies
 
             DispatchQueue.main.async {
-            self.tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
+        
     }
     
     
+    // MARK: TABLEVIEW FUNCTIONS
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -60,6 +63,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (section == 0) {
             return " "
@@ -67,6 +71,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return ""
         }
     }
+    
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "section_header") as! CustomSectionHeader
@@ -100,12 +105,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView,
                    heightForHeaderInSection section: Int) -> CGFloat {
         return 35
     }
     
     
+    // MARK: PREPARE SEGUE TO DETAIL
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let nextViewController = segue.destination as? DetailViewController
         sectionSelected = tableView.indexPathForSelectedRow?.section
