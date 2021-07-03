@@ -9,7 +9,7 @@ import UIKit
 
 
 /**
- Custom section header for the TableView.
+ Custom section header titles for the TableView.
  */
 class CustomSectionHeader: UITableViewHeaderFooterView {
 
