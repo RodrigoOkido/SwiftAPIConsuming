@@ -8,6 +8,8 @@
 import Foundation
 
 
+// MARK: BASE STRUCTS
+
 /**
  Struct movie. Basic details about movie.
  */
@@ -30,6 +32,9 @@ struct Genre {
 }
 
 
+
+// MARK: REQUEST TYPES ENUMERATIONS
+
 /**
  Enumerates the request types desired from the API
  */
@@ -37,6 +42,9 @@ enum Request_Type {
     case NOW_PLAYING, POPULAR_MOVIES
 }
 
+
+
+// MARK: REQUEST MOVIE API
 
 /**
  Request movie list from the TMDB API depending of your request type. The TMDB API requires an unique API Key.
@@ -111,6 +119,8 @@ struct RequestMoviesAPI_TMDB {
     }
 }
 
+
+// MARK: REQUEST GENRE TMDB API
 
 struct GenresTMDB {
     let api_key: String = "3b3fe42086419ba7768f061008414e5b"
