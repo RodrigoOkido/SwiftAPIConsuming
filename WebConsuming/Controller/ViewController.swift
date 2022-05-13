@@ -18,8 +18,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var rowSelected: Int?
 
     //MARK: API DECLARATIONS
-    let requestPopular = RequestMoviesAPI_TMDB(request_name: .POPULAR_MOVIES)
-    let requestNowPlaying = RequestMoviesAPI_TMDB(request_name: .NOW_PLAYING)
+    var requestPopular = RequestMoviesAPI_TMDB(request_name: .POPULAR_MOVIES)
+    var requestNowPlaying = RequestMoviesAPI_TMDB(request_name: .NOW_PLAYING)
 
     
     override func viewDidLoad() {

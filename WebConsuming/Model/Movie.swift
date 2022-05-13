@@ -43,7 +43,6 @@ enum Request_Type {
 }
 
 
-
 // MARK: REQUEST MOVIE API
 
 /**
@@ -54,6 +53,12 @@ struct RequestMoviesAPI_TMDB {
     
     let api_key: String = "3b3fe42086419ba7768f061008414e5b"
     var request_name: Request_Type
+    let urlService: URLService
+    
+    init(urlService: URLService = URLSession.shared, request_name: Request_Type) {
+        self.urlService = urlService
+        self.request_name = request_name
+    }
     
     mutating func setRequest (name: Request_Type) {
         self.request_name = name
@@ -74,7 +79,7 @@ struct RequestMoviesAPI_TMDB {
         
         let url = URL(string: request_url)!
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        urlService.request(with: url) { (data, response, error) in
             
             typealias TMDBMovies = [String: Any]
             
@@ -115,7 +120,6 @@ struct RequestMoviesAPI_TMDB {
             
             completionHandler(movies)
         }
-        .resume()
     }
 }
 
@@ -125,6 +129,11 @@ struct RequestMoviesAPI_TMDB {
 struct GenresTMDB {
     let api_key: String = "3b3fe42086419ba7768f061008414e5b"
     static var genres: [Genre] = []
+    let urlService: URLService
+    
+    init(urlService: URLService = URLSession.shared) {
+        self.urlService = urlService
+    }
     
     func request_allGenres(page: Int = 0, completionHandler: @escaping ([Genre]) -> Void) {
         if page < 0 { fatalError("Page should not be lower than 0") }
@@ -132,7 +141,7 @@ struct GenresTMDB {
         let urlString = "https://api.themoviedb.org/3/genre/movie/list?api_key=\(api_key)"
         let url = URL(string: urlString)!
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        urlService.request(with: url) { (data, response, error) in
             
             typealias TMDBGenres = [String: Any]
             
@@ -162,6 +171,5 @@ struct GenresTMDB {
             
             completionHandler(movies_genres)
         }
-        .resume()
     }
 }
